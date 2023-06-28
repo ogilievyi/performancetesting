@@ -1,0 +1,32 @@
+
+Вивід логів в консоль
+docker logs pf --follow
+
+Підключення в сам контейнер
+docker exec -ti pf bash
+
+Утилізація ресурсів контейнерами
+docker stats
+
+Видалення контейнера
+docker rm pf -f
+
+
+DEMO:
+1
+d:
+cd D:\GSchool\performancetesting\local
+docker rm pf -f
+docker run --name pf -d --cpus="0.3" -p 1030:80 performancetest:2
+docker logs pf --follow
+
+2
+docker rm pf_logs -f
+docker run --name pf_logs -d --cpus="0.3" -p 1025:80 performancetest:1
+docker logs pf_logs --follow
+
+3
+
+docker rm pf_logs_cold -f
+docker run --name pf_logs_cold -d --cpus="0.3" -p 1026:80 performancetest:1
+docker logs pf_logs_cold --follow

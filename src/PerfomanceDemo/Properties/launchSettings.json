@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "PerformanceDemo": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "Log4NetPath": "D:\\GSchool\\performancetesting\\src\\PerfomanceDemo\\log4net.config"
+      }
+    }
+  }
+}

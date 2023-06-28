@@ -1,0 +1,1 @@
+docker run --name pf -d --cpus="0.3" -p 1025:80 performancetest:1

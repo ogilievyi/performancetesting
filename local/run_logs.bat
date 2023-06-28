@@ -1,0 +1,1 @@
+docker run --name pf_logs -d --cpus="0.3" -p 1030:80 -v YOUR_GIT_FOLDER\src\PerfomanceDemo:/app/logconfig -e Log4NetPath=/app/logconfig/log4net.config performancetest:1 

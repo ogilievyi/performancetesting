@@ -1,0 +1,66 @@
+{
+	"info": {
+		"_postman_id": "9d912d83-c88b-4c42-9dc9-b15f8ba58644",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "ok",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{demo_path}}/ok",
+					"host": [
+						"{{demo_path}}"
+					],
+					"path": [
+						"ok"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ok_timeout",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{demo_path}}/ok",
+					"host": [
+						"{{demo_path}}"
+					],
+					"path": [
+						"ok"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "set_timeout",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{demo_path}}/set_timeout?timeout=5",
+					"host": [
+						"{{demo_path}}"
+					],
+					"path": [
+						"set_timeout"
+					],
+					"query": [
+						{
+							"key": "timeout",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
