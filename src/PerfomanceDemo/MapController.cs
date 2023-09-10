@@ -7,6 +7,8 @@ using Microsoft.Extensions.Configuration;
 namespace PerformanceDemo;
 
 [ApiController]
+[Route("[controller]")]
+
 public class MapController : ControllerBase
 {
     private readonly IConfiguration _configuration;

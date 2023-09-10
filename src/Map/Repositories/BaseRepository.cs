@@ -6,18 +6,18 @@ namespace Map.Repositories;
 
 public abstract class BaseRepository<T>
 {
-    protected readonly IConfiguration _configuration;
+    protected readonly IConfiguration Configuration;
 
     protected BaseRepository(IConfiguration configuration)
     {
-        _configuration = configuration;
+        Configuration = configuration;
     }
 
     protected abstract List<T> Read(SqlDataReader reader);
 
     protected virtual List<T> SelectSql(string sql)
     {
-        var connectionString = _configuration.GetConnectionString("db");
+        var connectionString = Configuration.GetConnectionString("db");
         using var connection = new SqlConnection(connectionString);
         connection.Open();
         var transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted);
@@ -39,7 +39,7 @@ public abstract class BaseRepository<T>
 
     protected void InsertSql(string sql)
     {
-        var connectionString = _configuration.GetConnectionString("db");
+        var connectionString = Configuration.GetConnectionString("db");
         using var connection = new SqlConnection(connectionString);
         connection.Open();
         var transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted);

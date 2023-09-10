@@ -12,7 +12,7 @@ public class StatisticRepository : BaseRepository<Statistic>
 
     public void Add(string userId, string searchText)
     {
-        var sql = $"insert into Statistic (user, searchText, count) values ('{userId}', '{searchText}', 1)";
+        var sql = $"insert into Statistic ([user], searchText, count) values (N'{userId}', N'{searchText}', 1)";
         InsertSql(sql);
     }
 

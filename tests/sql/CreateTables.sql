@@ -1,10 +1,23 @@
-CREATE TABLE "Address" (
-	"Region" NVARCHAR(max) NULL DEFAULT NULL COLLATE 'Ukrainian_100_CS_AS',
-	"City" NVARCHAR(max) NULL DEFAULT NULL COLLATE 'SQL_Latin1_General_CP1_CI_AS',
-	"CityType" NVARCHAR(max) NULL DEFAULT NULL COLLATE 'SQL_Latin1_General_CP1_CI_AS',
-	"District" NVARCHAR(max) NULL DEFAULT NULL COLLATE 'SQL_Latin1_General_CP1_CI_AS',
-	"Street" NVARCHAR(max) NULL DEFAULT NULL COLLATE 'SQL_Latin1_General_CP1_CI_AS',
-	"BuildNumber" NVARCHAR(max) NULL DEFAULT NULL COLLATE 'SQL_Latin1_General_CP1_CI_AS',
-	"Index" NVARCHAR(max) NULL DEFAULT NULL COLLATE 'SQL_Latin1_General_CP1_CI_AS'
-)
-;
+-- Dumping structure for таблиця demo.Address
+CREATE TABLE  "Address" (
+	"Region" NVARCHAR(max) NULL DEFAULT NULL,
+	"City" NVARCHAR(max) NULL DEFAULT NULL,
+	"CityType" NVARCHAR(max) NULL DEFAULT NULL ,
+	"District" NVARCHAR(max) NULL DEFAULT NULL ,
+	"Street" NVARCHAR(max) NULL DEFAULT NULL ,
+	"BuildNumber" NVARCHAR(max) NULL DEFAULT NULL ,
+	"Index" NVARCHAR(max) NULL DEFAULT NULL 
+);
+
+CREATE TABLE  "Log" (
+	"Message" NVARCHAR(max) NULL DEFAULT NULL ,
+	"Exception" NVARCHAR(max) NULL DEFAULT NULL ,
+	"Level" NVARCHAR(max) NULL DEFAULT NULL 
+);
+
+CREATE TABLE  "Statistic" (
+	"User" NVARCHAR(max) NULL DEFAULT NULL ,
+	"Count" NVARCHAR(max) NULL DEFAULT NULL ,
+	"SearchText" NVARCHAR(max) NULL DEFAULT NULL 
+);
+

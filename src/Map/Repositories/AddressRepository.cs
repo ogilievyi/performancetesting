@@ -84,8 +84,8 @@ public class AddressRepositoryFast : AddressRepository
     private SqlConnection GetDbConnection()
     {
         if (_connection is { State: ConnectionState.Open }) return _connection;
-        var connectionString = _configuration.GetConnectionString("db");
-        using var connection = new SqlConnection(connectionString);
+        var connectionString = Configuration.GetConnectionString("db");
+        var connection = new SqlConnection(connectionString);
         connection.Open();
         _connection = connection;
         return connection;
@@ -93,8 +93,8 @@ public class AddressRepositoryFast : AddressRepository
 
     protected override List<Address> SelectSql(string sql)
     {
-        var connection = GetDbConnection();
-        var command = connection.CreateCommand();
+         var connection = GetDbConnection();
+        using var command = connection.CreateCommand();
         command.CommandText = sql;
         using var reader = command.ExecuteReader();
         var list = Read(reader);
