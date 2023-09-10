@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
+using System.Text;
 using Map.Entity;
 using Microsoft.Extensions.Configuration;
 
@@ -46,13 +47,13 @@ public class AddressRepository : BaseRepository<Address>
         return sql;
     }
 
-    public Address GetAddress(string part)
+    public virtual Address GetAddress(string part)
     {
         var sql = GetSql(part);
         return SelectSql(sql).FirstOrDefault();
     }
 
-    public List<Address> GetAddresses(string part)
+    public virtual List<Address> GetAddresses(string part)
     {
         var sql = GetSql(part);
         return SelectSql(sql);
@@ -69,15 +70,7 @@ public class AddressRepositoryFast : AddressRepository
 
     public override string GetSql(string part)
     {
-        var sql = "select * from Address (nolock) where " +
-                  $"Region like N'%{part}%' " +
-                  $"or District like N'%{part}%' " +
-                  $"or City like N'%{part}%' " +
-                  $"or CityType like N'%{part}%' " +
-                  $"or Street like N'%{part}%' " +
-                  $"or BuildNumber like N'%{part}%' " +
-                  $"or [Index] like N'%{part}%' " +
-                  " ";
+        var sql = $"select  * from Address2 (nolock) where id in ({part})";
         return sql;
     }
 
@@ -91,9 +84,26 @@ public class AddressRepositoryFast : AddressRepository
         return connection;
     }
 
+    public override Address GetAddress(string part)
+    {
+        var connection = GetDbConnection();
+        using var command = connection.CreateCommand();
+        command.CommandText = $"select top 2000 id from AddressIndex (nolock) where address like N'%{part}%' ";
+        using var reader = command.ExecuteReader();
+        var sb = new StringBuilder();
+        while (reader.Read())
+        {
+            var id = reader["Id"];
+            sb.Append($"{id},");
+        }
+
+        sb.Remove(sb.Length - 1, 1);
+        return base.GetAddress(sb.ToString());
+    }
+
     protected override List<Address> SelectSql(string sql)
     {
-         var connection = GetDbConnection();
+        var connection = GetDbConnection();
         using var command = connection.CreateCommand();
         command.CommandText = sql;
         using var reader = command.ExecuteReader();

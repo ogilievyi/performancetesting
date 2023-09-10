@@ -1,3 +1,6 @@
+CREATE DATABASE demo;
+USE demo;
+
 -- Dumping structure for таблиця demo.Address
 CREATE TABLE  "Address" (
 	"Region" NVARCHAR(max) NULL DEFAULT NULL,
@@ -21,3 +24,19 @@ CREATE TABLE  "Statistic" (
 	"SearchText" NVARCHAR(max) NULL DEFAULT NULL 
 );
 
+CREATE TABLE  "Address2" (
+	"id" int IDENTITY(1,1) PRIMARY KEY,
+	"Region" NVARCHAR(max) NULL DEFAULT NULL,
+	"City" NVARCHAR(max) NULL DEFAULT NULL,
+	"CityType" NVARCHAR(max) NULL DEFAULT NULL ,
+	"District" NVARCHAR(max) NULL DEFAULT NULL ,
+	"Street" NVARCHAR(max) NULL DEFAULT NULL ,
+	"BuildNumber" NVARCHAR(max) NULL DEFAULT NULL ,
+	"Index" NVARCHAR(max) NULL DEFAULT NULL 
+);
+
+
+CREATE TABLE  "AddressIndex" (
+	"id" int NOT NULL ,
+	"Address" NVARCHAR(max) NULL DEFAULT NULL
+);
