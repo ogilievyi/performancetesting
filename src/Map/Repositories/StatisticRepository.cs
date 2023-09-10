@@ -1,7 +1,8 @@
 ﻿using System.Data.SqlClient;
+using Map.Entity;
 using Microsoft.Extensions.Configuration;
 
-namespace Map;
+namespace Map.Repositories;
 
 public class StatisticRepository : BaseRepository<Statistic>
 {

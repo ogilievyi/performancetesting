@@ -1,5 +1,7 @@
 ﻿using System.Data.SqlClient;
 using log4net;
+using Map.Entity;
+using Map.Repositories;
 using Microsoft.Extensions.Configuration;
 
 namespace Map;

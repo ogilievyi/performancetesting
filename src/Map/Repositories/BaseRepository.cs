@@ -2,7 +2,7 @@
 using System.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 
-namespace Map;
+namespace Map.Repositories;
 
 public abstract class BaseRepository<T>
 {
