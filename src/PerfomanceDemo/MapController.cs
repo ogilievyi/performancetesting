@@ -23,7 +23,7 @@ public class MapController : ControllerBase
     [HttpGet("get_address")]
     public object GetAddress([FromQuery] string address, string userId)
     {
-        _logger.WriteInfo($"{DateTime.UtcNow}: Get Address Start with param \"{address}\"");
+        _logger.WriteInfo($"Get Address Start with param \"{address}\"");
         try
         {
             var statisticRepository = new StatisticRepository(_configuration);
@@ -35,19 +35,19 @@ public class MapController : ControllerBase
         catch (Exception e)
         {
             Console.WriteLine(e);
-            _logger.WriteError(e, $"{DateTime.UtcNow}: Get Address with param \"{address}\" failed");
+            _logger.WriteError(e, $"Get Address with param \"{address}\" failed");
             throw;
         }
         finally
         {
-            _logger.WriteInfo($"{DateTime.UtcNow}: Get Address End with param \"{address}\"");
+            _logger.WriteInfo($"Get Address End with param \"{address}\"");
         }
     }
 
     [HttpGet("get_addresses")]
     public object GetAddresses([FromQuery] string address, string userId)
     {
-        _logger.WriteInfo($"{DateTime.UtcNow}: Get Address Start with param \"{address}\"");
+        _logger.WriteInfo($"Get Address Start with param \"{address}\"");
         try
         {
             var statisticRepository = new StatisticRepository(_configuration);
@@ -59,12 +59,12 @@ public class MapController : ControllerBase
         catch (Exception e)
         {
             Console.WriteLine(e);
-            _logger.WriteError(e, $"{DateTime.UtcNow}: Get Addresses with param \"{address}\" failed");
+            _logger.WriteError(e, $"Get Addresses with param \"{address}\" failed");
             throw;
         }
         finally
         {
-            _logger.WriteInfo($"{DateTime.UtcNow}: Get Addresses End with param \"{address}\"");
+            _logger.WriteInfo($"Get Addresses End with param \"{address}\"");
         }
     }
 }

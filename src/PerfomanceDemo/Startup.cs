@@ -1,5 +1,6 @@
 ﻿using log4net;
 using log4net.Config;
+using Map;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
@@ -38,6 +39,7 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddSingleton(Configuration);
+        services.AddSingleton(new MapServiceFast(Configuration));
         services.Configure<KestrelServerOptions>(o => { o.AllowSynchronousIO = true; });
         services.AddControllers();
         services.AddLogging(c =>

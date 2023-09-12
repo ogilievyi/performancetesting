@@ -1,3 +1,3 @@
 cd ..\src
-docker build . -f dockerfile -t performancetest:1
+docker build . -f dockerfile -t performancetest:3
 

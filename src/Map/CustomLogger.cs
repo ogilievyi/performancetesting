@@ -19,7 +19,8 @@ public class CustomLogger : BaseRepository<Log>
     {
         try
         {
-            var sql = $"insert into Log (Level, Message, Exception) values (N'{logLevel}', N'{message}', N'{exception}')";
+            var sql =
+                $"insert into Log ([Date], Level, Message, Exception) values ('{DateTime.UtcNow}', N'{logLevel}', N'{message}', N'{exception}')";
             InsertSql(sql);
         }
         catch (Exception e)

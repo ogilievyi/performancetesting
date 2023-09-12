@@ -4,19 +4,19 @@
     <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan">
       <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
         <collectionProp name="Arguments.arguments">
+          <elementProp name="protocol" elementType="Argument">
+            <stringProp name="Argument.name">protocol</stringProp>
+            <stringProp name="Argument.value">http</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
           <elementProp name="serviceUri" elementType="Argument">
             <stringProp name="Argument.name">serviceUri</stringProp>
             <stringProp name="Argument.value">127.0.0.1</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
-          <elementProp name="servicePort" elementType="Argument">
-            <stringProp name="Argument.name">servicePort</stringProp>
-            <stringProp name="Argument.value">5000</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
-          </elementProp>
-          <elementProp name="demoController" elementType="Argument">
-            <stringProp name="Argument.name">demoController</stringProp>
-            <stringProp name="Argument.value">demo</stringProp>
+          <elementProp name="mapServicePort" elementType="Argument">
+            <stringProp name="Argument.name">mapServicePort</stringProp>
+            <stringProp name="Argument.value">1031</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="mapController" elementType="Argument">
@@ -29,22 +29,26 @@
             <stringProp name="Argument.value">mapfast</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
-          <elementProp name="protocol" elementType="Argument">
-            <stringProp name="Argument.name">protocol</stringProp>
-            <stringProp name="Argument.value">http</stringProp>
+          <elementProp name="mapFastServicePort" elementType="Argument">
+            <stringProp name="Argument.name">mapFastServicePort</stringProp>
+            <stringProp name="Argument.value">1032</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="demoController" elementType="Argument">
+            <stringProp name="Argument.name">demoController</stringProp>
+            <stringProp name="Argument.value">demo</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>
       </elementProp>
-      <boolProp name="TestPlan.serialize_threadgroups">true</boolProp>
     </TestPlan>
     <hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="MapTreadGroup" enabled="false">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="MapTreadGroup">
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
           <stringProp name="LoopController.loops">100</stringProp>
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">30</stringProp>
-        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">5</stringProp>
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
         <stringProp name="ThreadGroup.duration"></stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
@@ -70,7 +74,7 @@
             </collectionProp>
           </elementProp>
           <stringProp name="HTTPSampler.domain">${serviceUri}</stringProp>
-          <stringProp name="HTTPSampler.port">${servicePort}</stringProp>
+          <stringProp name="HTTPSampler.port">${mapServicePort}</stringProp>
           <stringProp name="HTTPSampler.protocol">${protocol}</stringProp>
           <stringProp name="HTTPSampler.path">/${mapController}/get_address</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -79,12 +83,12 @@
         </HTTPSamplerProxy>
         <hashTree/>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="MapTreadGroup">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="MapFastTreadGroup">
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
           <stringProp name="LoopController.loops">100</stringProp>
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">30</stringProp>
-        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">5</stringProp>
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
         <stringProp name="ThreadGroup.duration"></stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
@@ -110,7 +114,7 @@
             </collectionProp>
           </elementProp>
           <stringProp name="HTTPSampler.domain">${serviceUri}</stringProp>
-          <stringProp name="HTTPSampler.port">${servicePort}</stringProp>
+          <stringProp name="HTTPSampler.port">${mapFastServicePort}</stringProp>
           <stringProp name="HTTPSampler.protocol">${protocol}</stringProp>
           <stringProp name="HTTPSampler.path">/${mapFastController}/get_address</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
@@ -228,7 +232,7 @@
           </value>
         </objProp>
         <stringProp name="filename"></stringProp>
-        <stringProp name="RespTimeGraph.interval">100</stringProp>
+        <stringProp name="RespTimeGraph.interval">1</stringProp>
       </ResultCollector>
       <hashTree/>
     </hashTree>

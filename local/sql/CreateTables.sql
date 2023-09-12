@@ -13,12 +13,14 @@ CREATE TABLE  "Address" (
 );
 
 CREATE TABLE  "Log" (
+	"Date" DATETIME NULL DEFAULT NULL,
+	"Level" NVARCHAR(max) NULL DEFAULT NULL,
 	"Message" NVARCHAR(max) NULL DEFAULT NULL ,
-	"Exception" NVARCHAR(max) NULL DEFAULT NULL ,
-	"Level" NVARCHAR(max) NULL DEFAULT NULL 
+	"Exception" NVARCHAR(max) NULL DEFAULT NULL
 );
 
 CREATE TABLE  "Statistic" (
+	"Date" DATETIME NULL DEFAULT NULL,
 	"User" NVARCHAR(max) NULL DEFAULT NULL ,
 	"Count" NVARCHAR(max) NULL DEFAULT NULL ,
 	"SearchText" NVARCHAR(max) NULL DEFAULT NULL 
@@ -40,3 +42,4 @@ CREATE TABLE  "AddressIndex" (
 	"id" int NOT NULL ,
 	"Address" NVARCHAR(max) NULL DEFAULT NULL
 );
+dbo."Log"

@@ -1,6 +1,5 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
-using System.Text;
 using Map.Entity;
 using Microsoft.Extensions.Configuration;
 
@@ -62,7 +61,10 @@ public class AddressRepository : BaseRepository<Address>
 
 public class AddressRepositoryFast : AddressRepository
 {
-    private SqlConnection _connection;
+    private static SqlConnection _connection;
+    private readonly SemaphoreSlim _semaphoreSqlConnection = new(1);
+
+    private readonly SemaphoreSlim _semaphore = new(2);
 
     public AddressRepositoryFast(IConfiguration configuration) : base(configuration)
     {
@@ -70,44 +72,50 @@ public class AddressRepositoryFast : AddressRepository
 
     public override string GetSql(string part)
     {
-        var sql = $"select  * from Address2 (nolock) where id in ({part})";
+        var sql =
+            $"SELECT * from AddressIndex ai (nolock) INNER JOIN Address2 a (nolock) ON ai.id = a.id WHERE Contains(ai.address, N'{part}')";
         return sql;
     }
 
     private SqlConnection GetDbConnection()
     {
         if (_connection is { State: ConnectionState.Open }) return _connection;
-        var connectionString = Configuration.GetConnectionString("db");
-        var connection = new SqlConnection(connectionString);
-        connection.Open();
-        _connection = connection;
-        return connection;
-    }
-
-    public override Address GetAddress(string part)
-    {
-        var connection = GetDbConnection();
-        using var command = connection.CreateCommand();
-        command.CommandText = $"select top 2000 id from AddressIndex (nolock) where address like N'%{part}%' ";
-        using var reader = command.ExecuteReader();
-        var sb = new StringBuilder();
-        while (reader.Read())
+	_semaphoreSqlConnection.Wait();
+ 	try
         {
-            var id = reader["Id"];
-            sb.Append($"{id},");
+           	if (_connection is { State: ConnectionState.Open }) return _connection;
+		if (_connection != null)
+		{
+			_connection.Close();
+ 			_connection.Dispose();
+		}
+		var connectionString = Configuration.GetConnectionString("db");
+		var connection = new SqlConnection(connectionString);
+		connection.Open();
+		_connection = connection;
         }
-
-        sb.Remove(sb.Length - 1, 1);
-        return base.GetAddress(sb.ToString());
+        finally
+        {
+            _semaphoreSqlConnection.Release();
+        }
+        return _connection;
     }
 
     protected override List<Address> SelectSql(string sql)
     {
-        var connection = GetDbConnection();
-        using var command = connection.CreateCommand();
-        command.CommandText = sql;
-        using var reader = command.ExecuteReader();
-        var list = Read(reader);
-        return list;
+        _semaphore.Wait();
+        try
+        {
+            var connection = GetDbConnection();
+            using var command = connection.CreateCommand();
+            command.CommandText = sql;
+            using var reader = command.ExecuteReader();
+            var list = Read(reader);
+            return list;
+        }
+        finally
+        {
+            _semaphore.Release();
+        }
     }
 }
