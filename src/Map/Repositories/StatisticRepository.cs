@@ -13,7 +13,7 @@ public class StatisticRepository : BaseRepository<Statistic>
     public void Add(string userId, string searchText)
     {
         var sql =
-            $"insert into Statistic ([Date], [user], searchText, count) values ('{DateTime.UtcNow}', N'{userId}', N'{searchText}', 1)";
+            $"insert into Statistic ([Date], [user], searchText, count) values ('{DateTime.UtcNow:yyyy-MM-dd HH:mm:ss}', N'{userId}', N'{searchText}', 1)";
         InsertSql(sql);
     }
 

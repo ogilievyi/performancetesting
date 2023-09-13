@@ -42,6 +42,8 @@ public class Startup
         services.AddSingleton(new MapServiceFast(Configuration));
         services.Configure<KestrelServerOptions>(o => { o.AllowSynchronousIO = true; });
         services.AddControllers();
+        services.AddEndpointsApiExplorer();
+        services.AddSwaggerGen();
         services.AddLogging(c =>
         {
             c.ClearProviders();
@@ -52,6 +54,12 @@ public class Startup
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
         InitLog4NetPath();
+        app.UseSwagger();
+        app.UseSwaggerUI(options =>
+        {
+            options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+            options.RoutePrefix = string.Empty;
+        });
         app.UseRouting();
         app.UseHttpsRedirection();
         app.UseEndpoints(e => e.MapControllers());

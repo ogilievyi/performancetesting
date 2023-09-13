@@ -42,4 +42,3 @@ CREATE TABLE  "AddressIndex" (
 	"id" int NOT NULL ,
 	"Address" NVARCHAR(max) NULL DEFAULT NULL
 );
-dbo."Log"
